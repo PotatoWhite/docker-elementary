@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-elementary-kube-simple-application
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: demo-elementary-kube-simple-application
+  
+  template:
+    metadata:
+      labels:
+        app: demo-elementary-kube-simple-application
+        tier: backend
+        track: stable
+    
+    spec:
+      containers:
+      - name: demo-elementary-kube-simple-application
+  
+        image: "demo-elementary-kube-simple:0.1"
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 8080

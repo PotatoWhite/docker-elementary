@@ -1,0 +1,44 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.18.0 ()
+  creationTimestamp: null
+  labels:
+    io.kompose.service: service-database
+  name: service-database
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: service-database
+    spec:
+      containers:
+      - env:
+        - name: MYSQL_DATABASE
+          value: test
+        - name: MYSQL_PASSWORD
+          value: potato123
+        - name: MYSQL_ROOT_PASSWORD
+          value: root123
+        - name: MYSQL_USER
+          value: potato
+        image: mysql:8.0.16
+        name: service-database
+        ports:
+        - containerPort: 3306
+        resources: {}
+        volumeMounts:
+        - mountPath: /data/mysql
+          name: service-database-claim0
+      restartPolicy: Always
+      volumes:
+      - name: service-database-claim0
+        persistentVolumeClaim:
+          claimName: service-database-claim0
+status: {}

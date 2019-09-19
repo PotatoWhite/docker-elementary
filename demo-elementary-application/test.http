@@ -1,0 +1,14 @@
+POST localhost:8082/samples
+Content-Type: application/json
+
+{
+  "name": "potato",
+  "data": "1234"
+}
+
+###
+
+GET localhost:8082/samples
+
+###
+

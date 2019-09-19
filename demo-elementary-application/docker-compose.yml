@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  service-database:
+    image: mysql:8.0.16
+    environment:
+      - MYSQL_ROOT_PASSWORD=root123
+      - MYSQL_DATABASE=test
+      - MYSQL_USER=potato
+      - MYSQL_PASSWORD=potato123
+    volumes:
+      - /data/mysql
+    ports:
+      - "3306:3306"
+
+  elementary-application:
+    image: demo-elementary-application:1
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    depends_on:
+      - service-database
+    volumes:
+      - /data/demo-elementary-application
+    ports:
+      - "8080:8080"
+
+
